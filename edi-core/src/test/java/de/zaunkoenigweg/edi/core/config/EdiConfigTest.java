@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanInitializationException;
 
+import com.pi4j.io.gpio.RaspiPin;
+
 public class EdiConfigTest {
 
 	private EdiConfig sut;
@@ -36,6 +38,8 @@ public class EdiConfigTest {
     @Test(expected=BeanInitializationException.class)
     public void testNoMediaFolderSet() {
         sut = new EdiConfig();
+        sut.setShutdownButtonPin(RaspiPin.GPIO_04);
+        sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.init();
     }
     
@@ -43,6 +47,8 @@ public class EdiConfigTest {
     public void testMediaFolderNotExisting() {
         sut = new EdiConfig();
         sut.setMediaFolder(nonExistingMediaFolder);
+        sut.setShutdownButtonPin(RaspiPin.GPIO_04);
+        sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.init();
     }
     
@@ -50,6 +56,33 @@ public class EdiConfigTest {
     public void testTextFileSetAsMediaFolder() {
         sut = new EdiConfig();
         sut.setMediaFolder(existingTextFile);
+        sut.setShutdownButtonPin(RaspiPin.GPIO_04);
+        sut.setPowerLedPin(RaspiPin.GPIO_05);
+        sut.init();
+    }
+    
+    @Test(expected=BeanInitializationException.class)
+    public void testNoShutdownButtonPinSet() {
+        sut = new EdiConfig();
+        sut.setMediaFolder(existingMediaFolder);
+        sut.setPowerLedPin(RaspiPin.GPIO_05);
+        sut.init();
+    }
+    
+    @Test(expected=BeanInitializationException.class)
+    public void testNoPowerLedPinSet() {
+        sut = new EdiConfig();
+        sut.setMediaFolder(existingMediaFolder);
+        sut.setShutdownButtonPin(RaspiPin.GPIO_04);
+        sut.init();
+    }
+    
+    @Test(expected=BeanInitializationException.class)
+    public void testPowerLedPinSameAsShutdownButtonPin() {
+        sut = new EdiConfig();
+        sut.setMediaFolder(existingMediaFolder);
+        sut.setShutdownButtonPin(RaspiPin.GPIO_04);
+        sut.setPowerLedPin(RaspiPin.GPIO_04);
         sut.init();
     }
     
@@ -57,6 +90,8 @@ public class EdiConfigTest {
     public void testAllSet() {
         sut = new EdiConfig();
         sut.setMediaFolder(existingMediaFolder);
+        sut.setShutdownButtonPin(RaspiPin.GPIO_04);
+        sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.init();
         assertNotNull(sut);
     }
