@@ -1,6 +1,7 @@
 package de.zaunkoenigweg.edi.server;
 
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import com.pi4j.io.gpio.RaspiPin;
 import de.zaunkoenigweg.edi.core.config.EdiConfig;
 import de.zaunkoenigweg.rspio.core.component.Action;
 import de.zaunkoenigweg.rspio.core.component.Blockable;
-import de.zaunkoenigweg.rspio.core.component.PushButton;
+import de.zaunkoenigweg.rspio.core.component.ReleaseButton;
 import de.zaunkoenigweg.rspio.core.input.InputController;
 
 @Configuration
@@ -46,8 +47,8 @@ public class SpringContext {
     }
 
     @Bean
-    public PushButton shutdownButton(EdiConfig config, EdiServer server) {
-        PushButton shutdownButton = new PushButton("Shutdown Button", config.getShutdownButtonPin());
+    public ReleaseButton shutdownButton(EdiConfig config, EdiServer server) {
+        ReleaseButton shutdownButton = new ReleaseButton("Shutdown Button", config.getShutdownButtonPin(), Duration.ofSeconds(3));
         shutdownButton.setAction(new Action() {
             @Override
             public void run(Blockable blockable) {
