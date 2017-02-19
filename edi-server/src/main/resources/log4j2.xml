@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
+    <Properties>
+        <Property name="appenderPatternLayout">%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level %logger{36} | %msg%n</Property>
+    </Properties>
     <Appenders>
         <Console name="CONSOLE" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} | %-5level %logger{36} | %msg%n" />
+            <PatternLayout pattern="${appenderPatternLayout}" />
             <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
         </Console>
         <File name="FILE_ALL" fileName="${sys:edi.log.dir}/${date:yyyy-MM-dd--HH-mm-ss}/all.log">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} | %-5level %logger{36} | %msg%n" />
+            <PatternLayout pattern="${appenderPatternLayout}" />
+        </File>
+        <File name="EDI_TRACE" fileName="${sys:edi.log.dir}/${date:yyyy-MM-dd--HH-mm-ss}/edi-trace.log">
+            <PatternLayout pattern="${appenderPatternLayout}" />
+        </File>
+        <File name="EDI_INFO" fileName="${sys:edi.log.dir}/${date:yyyy-MM-dd--HH-mm-ss}/edi.log">
+            <PatternLayout pattern="${appenderPatternLayout}" />
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+        </File>
+        <File name="RSPIO_TRACE" fileName="${sys:edi.log.dir}/${date:yyyy-MM-dd--HH-mm-ss}/rspio-trace.log">
+            <PatternLayout pattern="${appenderPatternLayout}" />
+        </File>
+        <File name="RSPIO_INFO" fileName="${sys:edi.log.dir}/${date:yyyy-MM-dd--HH-mm-ss}/rspio.log">
+            <PatternLayout pattern="${appenderPatternLayout}" />
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+        </File>
+        <File name="SPRING_TRACE" fileName="${sys:edi.log.dir}/${date:yyyy-MM-dd--HH-mm-ss}/spring-trace.log">
+            <PatternLayout pattern="${appenderPatternLayout}" />
+        </File>
+        <File name="SPRING_INFO" fileName="${sys:edi.log.dir}/${date:yyyy-MM-dd--HH-mm-ss}/spring.log">
+            <PatternLayout pattern="${appenderPatternLayout}" />
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
         </File>
     </Appenders>
     <Loggers>
@@ -14,6 +38,18 @@
             <AppenderRef ref="CONSOLE" />
             <AppenderRef ref="FILE_ALL" />
         </Root>
+        <Logger name="de.zaunkoenigweg.edi" level="trace">
+            <AppenderRef ref="EDI_TRACE" />
+            <AppenderRef ref="EDI_INFO" />
+        </Logger>
+        <Logger name="de.zaunkoenigweg.rspio" level="trace">
+            <AppenderRef ref="RSPIO_TRACE" />
+            <AppenderRef ref="RSPIO_INFO" />
+        </Logger>
+        <Logger name="org.springframework" level="trace">
+            <AppenderRef ref="SPRING_TRACE" />
+            <AppenderRef ref="SPRING_INFO" />
+        </Logger>
     </Loggers>
 </Configuration>
 
