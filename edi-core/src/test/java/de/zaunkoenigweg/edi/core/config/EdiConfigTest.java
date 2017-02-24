@@ -40,6 +40,7 @@ public class EdiConfigTest {
         sut = new EdiConfig();
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
+        sut.setActionButtonAPin(RaspiPin.GPIO_13);
         sut.init();
     }
     
@@ -49,6 +50,7 @@ public class EdiConfigTest {
         sut.setMediaFolder(nonExistingMediaFolder);
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
+        sut.setActionButtonAPin(RaspiPin.GPIO_13);
         sut.init();
     }
     
@@ -58,6 +60,7 @@ public class EdiConfigTest {
         sut.setMediaFolder(existingTextFile);
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
+        sut.setActionButtonAPin(RaspiPin.GPIO_13);
         sut.init();
     }
     
@@ -66,6 +69,7 @@ public class EdiConfigTest {
         sut = new EdiConfig();
         sut.setMediaFolder(existingMediaFolder);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
+        sut.setActionButtonAPin(RaspiPin.GPIO_13);
         sut.init();
     }
     
@@ -74,6 +78,16 @@ public class EdiConfigTest {
         sut = new EdiConfig();
         sut.setMediaFolder(existingMediaFolder);
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
+        sut.setActionButtonAPin(RaspiPin.GPIO_13);
+        sut.init();
+    }
+    
+    @Test(expected=BeanInitializationException.class)
+    public void testNoActionButtonAPinSet() {
+        sut = new EdiConfig();
+        sut.setMediaFolder(existingMediaFolder);
+        sut.setShutdownButtonPin(RaspiPin.GPIO_04);
+        sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.init();
     }
     
@@ -92,6 +106,7 @@ public class EdiConfigTest {
         sut.setMediaFolder(existingMediaFolder);
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
+        sut.setActionButtonAPin(RaspiPin.GPIO_13);
         sut.init();
         assertNotNull(sut);
     }

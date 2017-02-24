@@ -18,6 +18,7 @@ public class EdiConfig {
     private Path mediaFolder;
     private Pin powerLedPin;
     private Pin shutdownButtonPin;
+    private Pin actionButtonAPin;
 
     /**
      * Creates EDI configuration using properties.
@@ -45,6 +46,12 @@ public class EdiConfig {
             throw new BeanInitializationException(msg);
         }
         
+        if(actionButtonAPin==null) {
+            String msg = "GPIO pin for action button A is not set.";
+            LOG.error(msg);
+            throw new BeanInitializationException(msg);
+        }
+        
         if(powerLedPin==null) {
             String msg = "GPIO pin for power LED is not set.";
             LOG.error(msg);
@@ -57,7 +64,19 @@ public class EdiConfig {
             throw new BeanInitializationException(msg);
         }
         
-        LOG.info(String.format("EDI configuration: media-folder='%s', shutdown button pin: %s, power led pin: %s", mediaFolder, shutdownButtonPin, powerLedPin));
+        if(shutdownButtonPin.equals(actionButtonAPin)) {
+            String msg = "GPIO pin for action button A is the same as GPIO pin for shutdown button.";
+            LOG.error(msg);
+            throw new BeanInitializationException(msg);
+        }
+        
+        if(powerLedPin.equals(actionButtonAPin)) {
+            String msg = "GPIO pin for power LED is the same as GPIO pin for action button A.";
+            LOG.error(msg);
+            throw new BeanInitializationException(msg);
+        }
+        
+        LOG.info(String.format("EDI configuration: media-folder='%s', shutdown button pin: %s, action button A pin: %s, power led pin: %s", mediaFolder, shutdownButtonPin, actionButtonAPin, powerLedPin));
     }
 
     public Path getMediaFolder() {
@@ -82,5 +101,13 @@ public class EdiConfig {
 
     public void setShutdownButtonPin(Pin shutdownButtonPin) {
         this.shutdownButtonPin = shutdownButtonPin;
+    }
+
+    public Pin getActionButtonAPin() {
+        return actionButtonAPin;
+    }
+
+    public void setActionButtonAPin(Pin actionButtonAPin) {
+        this.actionButtonAPin = actionButtonAPin;
     }
 }
