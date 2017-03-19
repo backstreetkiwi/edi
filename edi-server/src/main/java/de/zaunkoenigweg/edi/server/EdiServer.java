@@ -1,6 +1,5 @@
 package de.zaunkoenigweg.edi.server;
 
-import java.io.File;
 import java.util.function.Supplier;
 
 import org.apache.commons.logging.Log;
@@ -13,7 +12,6 @@ import com.pi4j.io.gpio.PinState;
 
 import de.zaunkoenigweg.edi.core.config.EdiConfig;
 import de.zaunkoenigweg.rspio.core.input.InputController;
-import de.zaunkoenigweg.rspio.core.omx.AudioTrack;
 
 public class EdiServer {
     

@@ -19,6 +19,7 @@ import de.zaunkoenigweg.edi.core.media.PlayAudioOnButtonAction;
 import de.zaunkoenigweg.rspio.core.component.PushButton;
 import de.zaunkoenigweg.rspio.core.component.ReleaseButton;
 import de.zaunkoenigweg.rspio.core.input.InputController;
+import de.zaunkoenigweg.rspio.core.omx.AudioPlayer;
 import de.zaunkoenigweg.rspio.core.omx.MediaLibrary;
 
 @Configuration
@@ -34,6 +35,7 @@ public class SpringContext {
         config.setMediaFolder(Paths.get(environment.getProperty("media.folder")));
         config.setShutdownButtonPin(RaspiPin.getPinByAddress(environment.getProperty("gpio.shutdown-button.pin.number", Integer.class)));
         config.setPowerLedPin(RaspiPin.getPinByAddress(environment.getProperty("gpio.power-led.pin.number", Integer.class)));
+        config.setPlaybackLedPin(RaspiPin.getPinByAddress(environment.getProperty("gpio.playback-led.pin.number", Integer.class)));
         config.setActionButtonAPin(RaspiPin.getPinByAddress(environment.getProperty("gpio.action-button-a.pin.number", Integer.class)));
         return config;
     }
@@ -76,6 +78,14 @@ public class SpringContext {
         return actionButtonA;
     }
 
+    @Bean
+    public AudioPlayer audioPlayer(EdiConfig config) {
+        AudioPlayer audioPlayer = new AudioPlayer();
+        audioPlayer.setPlaybackLedPin(config.getPlaybackLedPin());
+        return audioPlayer;
+    }
+
+    
     @Bean
     public EdiServer server() {
         return new EdiServer();

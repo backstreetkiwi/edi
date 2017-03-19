@@ -41,6 +41,7 @@ public class EdiConfigTest {
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.setActionButtonAPin(RaspiPin.GPIO_13);
+        sut.setPlaybackLedPin(RaspiPin.GPIO_10);
         sut.init();
     }
     
@@ -51,6 +52,7 @@ public class EdiConfigTest {
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.setActionButtonAPin(RaspiPin.GPIO_13);
+        sut.setPlaybackLedPin(RaspiPin.GPIO_10);
         sut.init();
     }
     
@@ -61,6 +63,7 @@ public class EdiConfigTest {
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.setActionButtonAPin(RaspiPin.GPIO_13);
+        sut.setPlaybackLedPin(RaspiPin.GPIO_10);
         sut.init();
     }
     
@@ -70,6 +73,7 @@ public class EdiConfigTest {
         sut.setMediaFolder(existingMediaFolder);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.setActionButtonAPin(RaspiPin.GPIO_13);
+        sut.setPlaybackLedPin(RaspiPin.GPIO_10);
         sut.init();
     }
     
@@ -79,6 +83,7 @@ public class EdiConfigTest {
         sut.setMediaFolder(existingMediaFolder);
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setActionButtonAPin(RaspiPin.GPIO_13);
+        sut.setPlaybackLedPin(RaspiPin.GPIO_10);
         sut.init();
     }
     
@@ -88,6 +93,7 @@ public class EdiConfigTest {
         sut.setMediaFolder(existingMediaFolder);
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
+        sut.setPlaybackLedPin(RaspiPin.GPIO_10);
         sut.init();
     }
     
@@ -97,6 +103,7 @@ public class EdiConfigTest {
         sut.setMediaFolder(existingMediaFolder);
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_04);
+        sut.setPlaybackLedPin(RaspiPin.GPIO_10);
         sut.init();
     }
     
@@ -107,6 +114,7 @@ public class EdiConfigTest {
         sut.setShutdownButtonPin(RaspiPin.GPIO_04);
         sut.setPowerLedPin(RaspiPin.GPIO_05);
         sut.setActionButtonAPin(RaspiPin.GPIO_13);
+        sut.setPlaybackLedPin(RaspiPin.GPIO_10);
         sut.init();
         assertNotNull(sut);
     }

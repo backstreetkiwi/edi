@@ -19,6 +19,7 @@ public class EdiConfig {
     private Pin powerLedPin;
     private Pin shutdownButtonPin;
     private Pin actionButtonAPin;
+    private Pin playbackLedPin;
 
     /**
      * Creates EDI configuration using properties.
@@ -51,6 +52,14 @@ public class EdiConfig {
             LOG.error(msg);
             throw new BeanInitializationException(msg);
         }
+        
+        if(playbackLedPin==null) {
+            String msg = "GPIO pin for playback LED is not set.";
+            LOG.error(msg);
+            throw new BeanInitializationException(msg);
+        }
+        
+        // TODO assert that no GPIO is configured twice
         
         if(powerLedPin==null) {
             String msg = "GPIO pin for power LED is not set.";
@@ -109,5 +118,13 @@ public class EdiConfig {
 
     public void setActionButtonAPin(Pin actionButtonAPin) {
         this.actionButtonAPin = actionButtonAPin;
+    }
+
+    public Pin getPlaybackLedPin() {
+        return playbackLedPin;
+    }
+
+    public void setPlaybackLedPin(Pin playbackLedPin) {
+        this.playbackLedPin = playbackLedPin;
     }
 }
