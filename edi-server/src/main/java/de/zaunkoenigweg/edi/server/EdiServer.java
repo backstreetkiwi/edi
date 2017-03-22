@@ -12,6 +12,7 @@ import com.pi4j.io.gpio.PinState;
 
 import de.zaunkoenigweg.edi.core.config.EdiConfig;
 import de.zaunkoenigweg.rspio.core.input.InputController;
+import de.zaunkoenigweg.rspio.core.omx.AudioPlayer;
 
 public class EdiServer {
     
@@ -29,6 +30,9 @@ public class EdiServer {
 
     private GpioPinDigitalOutput powerLed;
             
+    @Autowired
+    private AudioPlayer audioPlayer;
+
     private boolean shutdown = false;
     
     public void run() {
@@ -50,6 +54,9 @@ public class EdiServer {
         } catch (InterruptedException e) {
             LOG.error("EDI server was interrupted unexpectedly.", e);
         }
+        LOG.info("Stopping audio playback...");
+        this.audioPlayer.stopAll();
+        LOG.info("audio playback stopped.");
         LOG.info("Stopping GPIO...");
         this.inputController.stop();
         this.gpioControllerSupplier.get().shutdown();
