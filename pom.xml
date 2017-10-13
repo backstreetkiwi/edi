@@ -13,6 +13,7 @@
     <modules>
         <module>edi-core</module>
         <module>edi-server</module>
+        <module>edi-web</module>
     </modules>
     
 </project>
