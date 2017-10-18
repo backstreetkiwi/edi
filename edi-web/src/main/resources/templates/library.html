@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head> 
+        <title>EDI :: Medien-Bibliothek</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1 th:text="'Medien-Bibliothek'" />
+
+        <p><a th:href="@{/}">zur Startseite</a></p>
+
+
+        <div th:if="${message}">
+            <h2 th:text="${message}"/>
+        </div>
+
+        <div>
+            <form method="POST" enctype="multipart/form-data" action="/library">
+                <table>
+                    <tr><td>Datei zum Hochladen:</td><td><input type="file" name="file" /></td></tr>
+                    <tr><td></td><td><input type="submit" value="Hochladen" /></td></tr>
+                </table>
+            </form>
+        </div>
+    
+        <div>
+            <h2 th:text="'vorhandene Dateien'" />
+            <ul>
+                <li th:each="file : ${files}">
+                    <a th:href="${file}" th:text="${file}" />
+                </li>
+            </ul>
+        </div>
+
+
+    </body>
+</html>
+
