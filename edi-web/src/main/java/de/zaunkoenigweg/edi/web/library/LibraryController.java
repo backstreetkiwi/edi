@@ -12,30 +12,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import de.zaunkoenigweg.edi.web.player.PlayerController;
+import de.zaunkoenigweg.rspio.audio.AudioPlayer;
+
 @Controller
 public class LibraryController {
 
     private final LibraryService libraryService;
 
     @Autowired
-    public LibraryController(LibraryService libraryService) {
+    public LibraryController(LibraryService libraryService, AudioPlayer audioPlayer) {
         this.libraryService = libraryService;
     }
 
     @GetMapping("/library")
     public String showLibrary(Model model) throws IOException {
-        model.addAttribute("files", libraryService.all().collect(Collectors.toList()));
+        model.addAttribute("files", libraryService.all().map(PlayerController::linkToPlayer)
+                .collect(Collectors.toList()));
         return "library";
     }
-
-//    @GetMapping("/files/{filename:.+}")
-//    @ResponseBody
-//    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-//
-//        Resource file = libraryService.loadAsResource(filename);
-//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-//                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-//    }
 
     @PostMapping("/library")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,

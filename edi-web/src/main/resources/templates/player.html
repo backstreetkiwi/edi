@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head> 
+        <title>EDI :: Medien-Bibliothek</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1 th:text="'Player'" />
+
+        <p><a th:href="@{/library}">zur Medien-Bibliothek</a></p>
+
+        <div th:if="${track}">
+            <h2 th:text="${track.state}"/>
+        </div>
+
+        <p><a th:href="@{/player/play}">PLAY</a></p>
+
+        <p><a th:href="@{/player/play30}">PLAY 30</a></p>
+
+    </body>
+</html>
+
