@@ -52,6 +52,12 @@ public class PlayerController {
     	return "redirect:/player";
     }
     
+    @GetMapping("/player/pause")
+    public String pause() {
+    	audioTrack.pause();
+    	return "redirect:/player";
+    }
+    
     public static String linkToPlayer(Path audioFile) {
     	return MvcUriComponentsBuilder.fromMethodName(PlayerController.class, "play", audioFile.getFileName().toString()).build().toString();
     }
