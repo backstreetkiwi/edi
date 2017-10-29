@@ -12,6 +12,7 @@
 
         <div th:if="${track}">
             <h2 th:text="${track.state}"/>
+            <h2 th:text="${track.title}"/>
         </div>
 
         <p><a th:href="@{/player/play}">PLAY</a></p>

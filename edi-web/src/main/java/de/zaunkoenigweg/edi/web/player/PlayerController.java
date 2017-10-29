@@ -2,6 +2,7 @@ package de.zaunkoenigweg.edi.web.player;
 
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,8 @@ public class PlayerController {
     @GetMapping("/player/launch/{filename:.+}")
     public String play(@PathVariable String filename) {
     	this.audioPlayer.stopAll();
-    	audioTrack = audioPlayer.track(libraryService.all().findFirst().get());
+    	String decodedFilename = new String(Base64.getDecoder().decode(filename));
+    	audioTrack = audioPlayer.track(libraryService.load(decodedFilename));
     	return "redirect:/player";
     }
     
@@ -59,7 +61,8 @@ public class PlayerController {
     }
     
     public static String linkToPlayer(Path audioFile) {
-    	return MvcUriComponentsBuilder.fromMethodName(PlayerController.class, "play", audioFile.getFileName().toString()).build().toString();
+    	String encodedAudioFileName = Base64.getUrlEncoder().encodeToString(audioFile.getFileName().toString().getBytes());
+    	return MvcUriComponentsBuilder.fromMethodName(PlayerController.class, "play", encodedAudioFileName).build().toString();
     }
 
 }

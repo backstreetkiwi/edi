@@ -12,8 +12,8 @@ public interface LibraryService {
 	void store(MultipartFile file);
 
 	Stream<Path> all();
-	//
-	// Path load(String filename);
+
+	Path load(String filename);
 	//
 	// Resource loadAsResource(String filename);
 	//

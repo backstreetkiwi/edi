@@ -72,4 +72,13 @@ public class FileSystemLibraryService implements LibraryService {
         }
 		
 	}
+
+	@Override
+	public Path load(String filename) {
+		Path libraryFile = rootLocation.resolve(filename);
+		if(!Files.exists(libraryFile)) {
+			return null;
+		}
+		return libraryFile;
+	}
 }

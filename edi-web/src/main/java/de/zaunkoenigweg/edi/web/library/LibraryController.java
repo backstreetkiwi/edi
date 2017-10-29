@@ -1,8 +1,10 @@
 package de.zaunkoenigweg.edi.web.library;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +29,11 @@ public class LibraryController {
 
     @GetMapping("/library")
     public String showLibrary(Model model) throws IOException {
-        model.addAttribute("files", libraryService.all().map(PlayerController::linkToPlayer)
-                .collect(Collectors.toList()));
+        List<Pair<String, String>> files = libraryService
+        		.all()
+        		.map(path -> Pair.of(path.getFileName().toString(), PlayerController.linkToPlayer(path)))
+                .collect(Collectors.toList());
+		model.addAttribute("files", files);
         return "library";
     }
 
